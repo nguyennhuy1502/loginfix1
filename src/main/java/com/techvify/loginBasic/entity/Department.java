@@ -54,6 +54,10 @@ public class Department implements Serializable {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
+
+    public Department(String name) {
+        this.name = name;
+    }
 }
 
 

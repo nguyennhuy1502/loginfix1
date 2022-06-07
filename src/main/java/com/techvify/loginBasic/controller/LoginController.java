@@ -1,15 +1,14 @@
 package com.techvify.loginBasic.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.techvify.loginBasic.dto.DepartmentDTO;
-import com.techvify.loginBasic.entity.Department;
+import com.techvify.loginBasic.dto.UserDTO;
 import com.techvify.loginBasic.entity.User;
 import com.techvify.loginBasic.dto.CreateUserDTO;
 import com.techvify.loginBasic.service.iService.IDepartmentService;
 import com.techvify.loginBasic.service.iService.IUserService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,19 +32,22 @@ public class LoginController {
     private ObjectMapper objectMapper;
 
     @GetMapping("/home")
-    public List<User> findAll() {
-       return userService.findAll();
+    public List<UserDTO> findAll() {
+        return userService.findAll().stream().map(post -> modelMapper.map(post, UserDTO.class))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/home/{id}")
-    public User getUserById(@PathVariable(name = "id") int id) {
-        return userService.getUserById(id);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable(name = "id") int id) {
+        User user = userService.getUserById(id);
+        UserDTO userResponse = modelMapper.map(user, UserDTO.class);
+        return ResponseEntity.ok().body(userResponse);
     }
 
-    @GetMapping("")
-    public User findByEmailAndPass(@PathVariable("username") String username, @PathVariable("password") String password){
-        return userService.findByEmailAndPass(username,password);
-    }
+//    @GetMapping("")
+//    public User findByEmailAndPass(@PathVariable("username") String username, @PathVariable("password") String password){
+//        return userService.findByEmailAndPass(username,password);
+//    }
 
     @PostMapping("/create")
     public void createUser(@RequestBody CreateUserDTO form) {
@@ -62,21 +64,6 @@ public class LoginController {
         return userService.deleteById(id);
     }
 
-    @GetMapping("/department")
-    public List<DepartmentDTO> getAllDepartments() {
-
-        List<Department>entities = service.getAllDepartment();
-
-        // convert entities --> dtos
-
-        List<DepartmentDTO> dtos = modelMapper.map(entities, new TypeToken<List<DepartmentDTO>>(){
-        }.getType());
-        return dtos;
-
-//        return entities.stream().map(e -> objectMapper.convertValue(e,DepartmentDTO.class)).collect(Collectors.toList());
-    }
-
-//
 //    @GetMapping("/department")
 //    public List<Department> getAllDepartment(){
 //
