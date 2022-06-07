@@ -47,10 +47,10 @@ public class DepartmentService implements IDepartmentService {
         return repository.save(department);
     }
 
-//    @Override
-//    public void deleteById(int id) {
-//        Department department = repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Department","id",id));
-//        repository.delete(department);
-//    }
+    @Override
+    public void deleteById(int id) {
+        Department department = repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Error"));
+        repository.delete(department);
+    }
 
 }

@@ -20,4 +20,5 @@ public interface IUserService {
 
     User loginUser(CreateUserDTO createUserDTO);
 
+    User updateUser(int id, User userRequest);
 }

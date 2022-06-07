@@ -24,7 +24,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "email", length = 50)
+    @Column(name = "email", length = 50,unique = true)
     private String email;
 
     @Column(name = "username", length = 50, nullable = false, unique = true, updatable = false)
@@ -42,6 +42,8 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "departmentID")
     private Department department;
+
+
 
     public User() {
     }
@@ -114,4 +116,15 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
     }
+
+    public User(int id, String email, String username, String password, String firstName, String lastName, Department department) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;
+    }
+
 }

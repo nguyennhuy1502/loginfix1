@@ -2,6 +2,7 @@ package com.techvify.loginBasic.service.iService;
 
 import com.techvify.loginBasic.dto.CreateDepartmentDTO;
 import com.techvify.loginBasic.entity.Department;
+import com.techvify.loginBasic.entity.User;
 
 import java.util.List;
 
@@ -14,5 +15,6 @@ public interface IDepartmentService {
 
     Department createDepartment(Department department);
 
-//    void deleteById(int id);
+    void deleteById(int id);
+
 }

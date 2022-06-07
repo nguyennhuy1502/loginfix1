@@ -1,5 +1,6 @@
 package com.techvify.loginBasic.controller;
 
+import com.techvify.loginBasic.dto.ApiResponse;
 import com.techvify.loginBasic.dto.CreateDepartmentDTO;
 import com.techvify.loginBasic.dto.DepartmentDTO;
 import com.techvify.loginBasic.entity.Department;
@@ -50,8 +51,9 @@ public class DepartmentController {
         DepartmentDTO postResponse = modelMapper.map(department, DepartmentDTO.class);
         return ResponseEntity.ok().body(postResponse);
     }
+
     @PostMapping("/create")
-    public ResponseEntity<CreateDepartmentDTO> createDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO ){
+    public ResponseEntity<CreateDepartmentDTO> createDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) {
         Department departmentRequest = modelMapper.map(createDepartmentDTO, Department.class);
         Department department = service.createDepartment(departmentRequest);
 
@@ -59,6 +61,10 @@ public class DepartmentController {
         return new ResponseEntity<CreateDepartmentDTO>(departmentResponse, HttpStatus.CREATED);
     }
 
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<ApiResponse>
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ApiResponse> deleteDepartment(@PathVariable(name = "id") int id) {
+        service.deleteById(id);
+        ApiResponse apiResponse = new ApiResponse(Boolean.TRUE, "Department delete Successfully", HttpStatus.OK);
+        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+    }
 }

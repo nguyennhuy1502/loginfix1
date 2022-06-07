@@ -76,4 +76,17 @@ public class UserService implements IUserService {
         return null;
     }
 
+    @Override
+    public User updateUser(int id, User userRequest) {
+        User user = iUserRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Error"));
+        user.setEmail(user.getEmail());
+        user.setUsername(user.getUsername());
+        user.setPassword(user.getPassword());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+        user.setDepartment(user.getDepartment());
+
+        return iUserRepository.save(user);
+    }
+
 }

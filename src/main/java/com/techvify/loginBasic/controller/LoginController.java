@@ -1,6 +1,7 @@
 package com.techvify.loginBasic.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techvify.loginBasic.dto.UpdateUser;
 import com.techvify.loginBasic.dto.UserDTO;
 import com.techvify.loginBasic.entity.User;
 import com.techvify.loginBasic.dto.CreateUserDTO;
@@ -21,9 +22,6 @@ public class LoginController {
 
     @Autowired
     private IUserService userService;
-
-    @Autowired
-    private IDepartmentService service;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -69,4 +67,12 @@ public class LoginController {
 //
 //        return service.getAllDepartment();
 //    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UpdateUser> updateUser(@PathVariable int id, @RequestBody UpdateUser updateUser){
+        User userRequest = modelMapper.map(updateUser, User.class);
+        User user = userService.updateUser(id, userRequest);
+
+        UpdateUser userDTO = modelMapper.map(user, UpdateUser.class);
+        return ResponseEntity.ok().body(userDTO);
+    }
 }
