@@ -1,6 +1,7 @@
 package com.techvify.loginBasic.service;
 
 import com.techvify.loginBasic.dto.CreateUserDTO;
+import com.techvify.loginBasic.dto.UpdateUser;
 import com.techvify.loginBasic.dto.UserDTO;
 import com.techvify.loginBasic.entity.User;
 import com.techvify.loginBasic.repository.IUserRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -77,16 +79,33 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updateUser(int id, User userRequest) {
-        User user = iUserRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Error"));
-        user.setEmail(user.getEmail());
-        user.setUsername(user.getUsername());
-        user.setPassword(user.getPassword());
-        user.setFirstName(user.getFirstName());
-        user.setLastName(user.getLastName());
-        user.setDepartment(user.getDepartment());
+    public User updateUser(int id, @RequestBody UpdateUser updateUser) {
 
-        return iUserRepository.save(user);
+        User userFind = iUserRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error"));
+
+        if (userFind != null) {
+            userFind.setEmail(updateUser.getEmail());
+            userFind.setUsername(updateUser.getUsername());
+            userFind.setPassword(updateUser.getPassword());
+            userFind.setFirstName(updateUser.getFirstName());
+            userFind.setLastName(updateUser.getLastName());
+            userFind.setDepartment(updateUser.getDepartmentID());
+
+            return iUserRepository.save(userFind);
+        }
+
+
+//        user = iUserRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Error" + id));
+//
+//        user.setEmail(user.getEmail());
+//        user.setUsername(user.getUsername());
+//        user.setPassword(user.getPassword());
+//        user.setFirstName(user.getFirstName());
+//        user.setLastName(user.getLastName());
+//        user.setDepartment(user.getDepartment());
+//
+//        return iUserRepository.save(user);
+
+        return null;
     }
-
 }

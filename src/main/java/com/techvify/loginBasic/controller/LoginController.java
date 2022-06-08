@@ -68,11 +68,17 @@ public class LoginController {
 //        return service.getAllDepartment();
 //    }
     @PutMapping("/update/{id}")
-    public ResponseEntity<UpdateUser> updateUser(@PathVariable int id, @RequestBody UpdateUser updateUser){
-        User userRequest = modelMapper.map(updateUser, User.class);
-        User user = userService.updateUser(id, userRequest);
+    public User updateUser(@PathVariable(name = "id") int id, @RequestBody UpdateUser updateUser){
+//        User userRequest = modelMapper.map(updateUser, User.class);
+//        User user = userService.updateUser(id, userRequest);
+//
+//
+//        UpdateUser userDTO = modelMapper.map(user, UpdateUser.class);
+//
+//
+//        return ResponseEntity.ok().body(userDTO);
 
-        UpdateUser userDTO = modelMapper.map(user, UpdateUser.class);
-        return ResponseEntity.ok().body(userDTO);
+      return userService.updateUser(id,updateUser);
+
     }
 }

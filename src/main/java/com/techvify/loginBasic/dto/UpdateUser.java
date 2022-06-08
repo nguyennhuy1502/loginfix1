@@ -1,7 +1,6 @@
 package com.techvify.loginBasic.dto;
 
 import com.techvify.loginBasic.entity.Department;
-import com.techvify.loginBasic.entity.User;
 
 public class UpdateUser {
     private int id;
@@ -18,6 +17,16 @@ public class UpdateUser {
     private Department departmentID;
 
     public UpdateUser() {
+    }
+
+    public UpdateUser(int id, String email, String username, String password, String firstName, String lastName, Department departmentID) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.departmentID = departmentID;
     }
 
     public String getUsername() {

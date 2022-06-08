@@ -1,6 +1,7 @@
 package com.techvify.loginBasic.service.iService;
 
 import com.techvify.loginBasic.dto.CreateUserDTO;
+import com.techvify.loginBasic.dto.UpdateUser;
 import com.techvify.loginBasic.entity.Department;
 import com.techvify.loginBasic.entity.User;
 
@@ -20,5 +21,5 @@ public interface IUserService {
 
     User loginUser(CreateUserDTO createUserDTO);
 
-    User updateUser(int id, User userRequest);
+    User updateUser(int id, UpdateUser updateUser);
 }

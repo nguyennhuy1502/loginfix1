@@ -67,4 +67,5 @@ public class DepartmentController {
         ApiResponse apiResponse = new ApiResponse(Boolean.TRUE, "Department delete Successfully", HttpStatus.OK);
         return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
     }
+
 }
